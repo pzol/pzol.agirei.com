@@ -4,7 +4,7 @@
   <title><![CDATA[ædʒirei]]></title>
   <link href="http://pzol.github.com/atom.xml" rel="self"/>
   <link href="http://pzol.github.com/"/>
-  <updated>2012-01-23T15:11:23+01:00</updated>
+  <updated>2012-01-23T15:17:00+01:00</updated>
   <id>http://pzol.github.com/</id>
   <author>
     <name><![CDATA[Piotr Zolnierek]]></name>
@@ -14,15 +14,13 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Zombie Ninjas Attack: A survivor's retrospective]]></title>
+    <title type="html"><![CDATA[Experimenting with acceptance testing]]></title>
     <link href="http://pzol.github.com/blog/2012/01/23/testing-octopress/"/>
     <updated>2012-01-23T12:22:00+01:00</updated>
     <id>http://pzol.github.com/blog/2012/01/23/testing-octopress</id>
-    <content type="html"><![CDATA[<p>just testing ;)</p>
+    <content type="html"><![CDATA[<p>This is how I imagine an <code>acceptance test</code>:</p>
 
-<p>some ruby code</p>
-
-<figure class='code'><figcaption><span>sunny_day_spec.rb  </span></figcaption>
+<figure class='code'><figcaption><span>transactions_spec.rb  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
