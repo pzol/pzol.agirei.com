@@ -5,24 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Experimenting with acceptance testing - ædʒirei</title>
+  <title>about me - ædʒirei</title>
   <meta name="author" content="Piotr Zolnierek">
 
   
-  <meta name="description" content="This is how I imagine an acceptance test: transactions_spec.rb 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
+  <meta name="description" content="About Me Jan 23rd, 2012 Bio Piotr has always had a passion for software development. He wrote his first &#8220;Hello World&#8221; 28 years ago at &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,7 +18,7 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress">
+  <link rel="canonical" href="http://pzol.github.com/pzol/about-me">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -89,15 +76,62 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Experimenting With Acceptance Testing</h1>
-    
-    
+    <h1 class="entry-title">About Me</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-23T17:20:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2012</time></p>
+  </header>
+  
+  <h2>Bio</h2>
+
+<p>Piotr has always had a passion for software development. He wrote his first &#8220;Hello World&#8221; 28 years ago at the age o 9.
+After years of leading software projects the old waterfallish way,
+he discovered agile and has been active in exploring and evangelizing it all around the world.
+He has lead many software projects in Germany, Poland, South Africa, Greece and Portugal.</p>
+
+<p>He is the founder and owner of anixe, a software provider for the travel industry,
+who&#8217;s motto is to always deliver valuable software on time.</p>
+
+<p>Piotr has extensive experience in building reliable, highly scalable, multi-national e-commerce solutions.
+He has strong leadership skills with a special focus on agile, scrum and lean software development.</p>
+
+<p>In his current position as CTO he is responsible for identifying, tracking and implementing new technologies,
+providing best-practices and coaching to the development teams and building consensus for new technical initiatives.
+At the same time as CEO he brings his vision to life for a better user experience for travelers making their bookings online.</p>
+
+<p>In agile terms he works as a product owner and agile coach for various teams and helps them to deliver software successfully
+and make their customers happy.</p>
+
+<h2>Past Talks</h2>
+
+<ul>
+<li>e-travel forum 2010 - Social media in travel and tourism, just a fag? - Warsaw, Poland</li>
+<li>Agile Eastern Europe 2010 - Fixed budgets in Agile - Kiev, Ukraine</li>
+<li>Agile Central Europe 2011 - Holistic Deployment - Cracow, Poland</li>
+<li>Agile Basecamp 2011 - Fixed budgets in agile - Lviv, Ukraine</li>
+<li>Agile By Example 2011 - Pain is temporary, Victory is forever - Warsaw, Poland</li>
+<li>Agile Eastern Europe 2011 - Holistic Deployment - Kiev, Ukraine</li>
+</ul>
+
+
+  
+    <footer>
       <p class="meta">
         
+        
 
 
 
@@ -109,85 +143,13 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   
 
 
-<time datetime="2012-01-23T12:22:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2012</time>
-        
-         | <a href="#disqus_thread">Comments</a>
+<time datetime="2012-01-23T17:20:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2012</time>
         
       </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>This is how I imagine an <em>acceptance test</em>:</p>
-
-<figure class='code'><figcaption><span>transactions_spec.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scenario</span> <span class="s2">&quot;Sunny day&quot;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">user</span> <span class="o">=</span> <span class="no">TestUser</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@browser</span><span class="p">)</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Role</span><span class="o">::</span><span class="no">Browser</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">login</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">is_logged_in!</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">visits</span> <span class="s1">&#39;/stats&#39;</span> <span class="k">unless</span> <span class="n">user</span><span class="o">.</span><span class="n">url</span> <span class="o">=~</span> <span class="sr">/\/stats/</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">searches_by_time_taken</span><span class="p">(</span><span class="n">time_taken</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">assert</span> <span class="n">user</span><span class="o">.</span><span class="n">transactions_on_page</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">20</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">all_transactions!</span> <span class="p">{</span><span class="o">|</span><span class="n">tr</span><span class="o">|</span> <span class="n">tr</span><span class="o">.</span><span class="n">time_taken</span> <span class="o">&gt;</span> <span class="n">time_taken</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-
-
-  <footer>
-    <p class="meta">
       
+        <div class="sharing">
   
-
-<span class="byline author vcard">Posted by <span class="fn">Piotr Zolnierek</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-23T12:22:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2012</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/bdd/'>bdd</a>, <a class='category' href='/blog/categories/testing-/'>testing,</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/" data-via="pzol" data-counturl="http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pzol.github.com/pzol/about-me/index.html" data-via="pzol" data-counturl="http://pzol.github.com/pzol/about-me/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -197,14 +159,9 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   
 </div>
 
-    
-    <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2011/02/14/experience-vs-attitude/" title="Previous Post: Experience vs Attitude">&laquo; Experience vs Attitude</a>
-      
-      
-    </p>
-  </footer>
+    </footer>
+  
 </article>
 
   <section>
@@ -288,8 +245,8 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/';
-        var disqus_url = 'http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/';
+        var disqus_identifier = 'http://pzol.github.com/pzol/about-me/index.html';
+        var disqus_url = 'http://pzol.github.com/pzol/about-me/index.html';
         var disqus_script = 'embed.js';
       
     (function () {
