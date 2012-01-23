@@ -5,24 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ædʒirei</title>
+  <title>Experience vs Attitude - ædʒirei</title>
   <meta name="author" content="Piotr Zolnierek">
 
   
-  <meta name="description" content="This is how I imagine an acceptance test: transactions_spec.rb 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
+  <meta name="description" content="When interviewing new people for a job as an agile developer, what qualities should you be looking for?
+Is it sufficient to check the previous &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,7 +19,7 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://pzol.github.com/pzol">
+  <link rel="canonical" href="http://pzol.github.com/pzol/blog/2011/02/14/experience-vs-attitude">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -87,85 +75,12 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/01/23/testing-octopress/">Experimenting With Acceptance Testing</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-23T12:22:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2012</time>
-        
-         | <a href="/blog/2012/01/23/testing-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is how I imagine an <em>acceptance test</em>:</p>
-
-<figure class='code'><figcaption><span>transactions_spec.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scenario</span> <span class="s2">&quot;Sunny day&quot;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">user</span> <span class="o">=</span> <span class="no">TestUser</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@browser</span><span class="p">)</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Role</span><span class="o">::</span><span class="no">Browser</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">login</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">is_logged_in!</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">visits</span> <span class="s1">&#39;/stats&#39;</span> <span class="k">unless</span> <span class="n">user</span><span class="o">.</span><span class="n">url</span> <span class="o">=~</span> <span class="sr">/\/stats/</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">searches_by_time_taken</span><span class="p">(</span><span class="n">time_taken</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">assert</span> <span class="n">user</span><span class="o">.</span><span class="n">transactions_on_page</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">20</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">all_transactions!</span> <span class="p">{</span><span class="o">|</span><span class="n">tr</span><span class="o">|</span> <span class="n">tr</span><span class="o">.</span><span class="n">time_taken</span> <span class="o">&gt;</span> <span class="n">time_taken</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/14/experience-vs-attitude/">Experience vs Attitude</a></h1>
+      <h1 class="entry-title">Experience vs Attitude</h1>
     
     
       <p class="meta">
@@ -183,14 +98,14 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
 
 <time datetime="2011-02-14T14:00:00+01:00" pubdate data-updated="true">Feb 14<span>th</span>, 2011</time>
         
-         | <a href="/blog/2011/02/14/experience-vs-attitude/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>When interviewing new people for a job as an agile developer, what qualities should you be looking for?
+<div class="entry-content"><p>When interviewing new people for a job as an agile developer, what qualities should you be looking for?
 Is it sufficient to check the previous experience and the knowledge in the areas he will be needing for your projects or is the attitude more important?</p>
 
 <h3>Attitude</h3>
@@ -262,18 +177,69 @@ you might lay less importance on experience and more on the right attitude.</p>
 You can build good software with unexperienced people, it will take longer and will cost you more,
 but with people with a bad attitude you will most probably build bad software, which will be hard to maintain.</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Piotr Zolnierek</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2011-02-14T14:00:00+01:00" pubdate data-updated="true">Feb 14<span>th</span>, 2011</time>
+      
+
+<span class="categories">
   
-  <div class="pagination">
+    <a class='category' href='/blog/categories/agile/'>agile</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pzol.github.com/pzol/blog/2011/02/14/experience-vs-attitude/" data-via="pzol" data-counturl="http://pzol.github.com/pzol/blog/2011/02/14/experience-vs-attitude/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/23/testing-octopress/" title="next Post: Experimenting with acceptance testing">Experimenting with acceptance testing &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -295,7 +261,7 @@ but with people with a bad attitude you will most probably build bad software, w
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -331,6 +297,7 @@ but with people with a bad attitude you will most probably build bad software, w
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -345,7 +312,10 @@ but with people with a bad attitude you will most probably build bad software, w
       var disqus_shortname = 'pzol';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://pzol.github.com/pzol/blog/2011/02/14/experience-vs-attitude/';
+        var disqus_url = 'http://pzol.github.com/pzol/blog/2011/02/14/experience-vs-attitude/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
