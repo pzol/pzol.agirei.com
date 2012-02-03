@@ -4,7 +4,7 @@
   <title><![CDATA[Category: testing | ædʒirei]]></title>
   <link href="http://pzol.github.com/pzol/blog/categories/testing/atom.xml" rel="self"/>
   <link href="http://pzol.github.com/pzol/"/>
-  <updated>2012-02-03T05:08:34+01:00</updated>
+  <updated>2012-02-03T05:19:55+01:00</updated>
   <id>http://pzol.github.com/pzol/</id>
   <author>
     <name><![CDATA[Piotr Zolnierek]]></name>
@@ -70,7 +70,7 @@ end
 
 <h2>The OO Solution</h2>
 
-<p>I am currently working on another more longish article which will be about <strong>Beautiful Acceptance Tests</strong>_ where I use an object oriented way to  write acceptance tests, but here is a tip from it.</p>
+<p>I am currently working on another more longish article which will be about <strong>Beautiful Acceptance Tests</strong> where I use an object oriented way to  write acceptance tests, but here is a tip from it.</p>
 
 <p>If you want full control do the Capybara wire-up yourself.</p>
 
