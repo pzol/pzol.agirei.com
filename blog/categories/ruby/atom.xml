@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: atdd | ædʒirei]]></title>
-  <link href="http://pzol.github.com/pzol/blog/categories/atdd/atom.xml" rel="self"/>
+  <title><![CDATA[Category: ruby | ædʒirei]]></title>
+  <link href="http://pzol.github.com/pzol/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://pzol.github.com/pzol/"/>
   <updated>2012-02-03T05:05:07+01:00</updated>
   <id>http://pzol.github.com/pzol/</id>
