@@ -4,7 +4,7 @@
   <title><![CDATA[ædʒirei]]></title>
   <link href="http://pzol.github.com/pzol/atom.xml" rel="self"/>
   <link href="http://pzol.github.com/pzol/"/>
-  <updated>2012-01-23T17:38:29+01:00</updated>
+  <updated>2012-02-03T05:03:53+01:00</updated>
   <id>http://pzol.github.com/pzol/</id>
   <author>
     <name><![CDATA[Piotr Zolnierek]]></name>
@@ -14,43 +14,74 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Experimenting with acceptance testing]]></title>
-    <link href="http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/"/>
-    <updated>2012-01-23T12:22:00+01:00</updated>
-    <id>http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress</id>
-    <content type="html"><![CDATA[<p>This is how I imagine an <em>acceptance test</em>:</p>
+    <title type="html"><![CDATA[OOP Acceptance Tests - Basics]]></title>
+    <link href="http://pzol.github.com/pzol/blog/2012/01/29/object-oriented-acceptance-tests-basics/"/>
+    <updated>2012-01-29T09:59:00+01:00</updated>
+    <id>http://pzol.github.com/pzol/blog/2012/01/29/object-oriented-acceptance-tests-basics</id>
+    <content type="html"><![CDATA[<p>I have had a very hard time to understand <em>how</em> and <em>why</em> to do acceptance testing. I was amazed by executable documentation, from the moment I heard the word. It bears the promise of a lean documentation. A documentation which is part of the actual software being built.</p>
 
-<figure class='code'><figcaption><span>transactions_spec.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scenario</span> <span class="s2">&quot;Sunny day&quot;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">user</span> <span class="o">=</span> <span class="no">TestUser</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@browser</span><span class="p">)</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Role</span><span class="o">::</span><span class="no">Browser</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">login</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">is_logged_in!</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">visits</span> <span class="s1">&#39;/stats&#39;</span> <span class="k">unless</span> <span class="n">user</span><span class="o">.</span><span class="n">url</span> <span class="o">=~</span> <span class="sr">/\/stats/</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">searches_by_time_taken</span><span class="p">(</span><span class="n">time_taken</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">assert</span> <span class="n">user</span><span class="o">.</span><span class="n">transactions_on_page</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">20</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">all_transactions!</span> <span class="p">{</span><span class="o">|</span><span class="n">tr</span><span class="o">|</span> <span class="n">tr</span><span class="o">.</span><span class="n">time_taken</span> <span class="o">&gt;</span> <span class="n">time_taken</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>For me living documentation is a way to describe, thus define or in other words specify a system.</p>
+
+<!-- find a better word for system -->
 
 
+<p>This will be a series of short articles. The first one will be about the theory. The second will start with real code.</p>
 
+<h2>User Stories and Use Cases</h2>
+
+<p><span class='pullquote-right' data-pullquote='who? what? why? '>
+User stories should be written so that they express what the user actually expects.<br/>
+They are about describing what it looks like from the point of view of an actor being part of a narrative.
+Stories answer the very important questions who? what? why?. The last-mentioned is actually the most important one.</p>
+
+<p></span></p>
+
+<p><span class='pullquote-right' data-pullquote='how? what? '>
+Use cases are very important, too. They describe the same thing, but from a different perspective.
+Use cases tell us more about how? what?
+</span></p>
+
+<h2>Context - Action - Outcome</h2>
+
+<p>Given - When - Then</p>
+
+<p>When setting up a context - verify it has been really setup, this is really important as you will know you are starting from the right spot, it will tell you early, that something is wrong with your environment, and not yet in the action or the outcome.</p>
+
+<h2>Types of Tests</h2>
+
+<p>Acceptance
+: Does the whole system work?</p>
+
+<p>Integration
+: Does our code work against the code we can&#8217;t change?</p>
+
+<p>Unit
+: Do our objects do the right thing, are they convenient to work with?</p>
+
+<h2>Elements of acceptance tests</h2>
+
+<ul>
+<li>should exercise the system end-to-end</li>
+<li>should see the system as it is seen by the user</li>
+<li>should provide a documentation for later</li>
+<li>should be coded in a clean way</li>
+</ul>
+
+
+<h2>Start on a Sunny Day</h2>
+
+<p>Write your first scenario, you can name it &#8216;Sunny Day&#8217; at first, so you don&#8217;t have to think about the name to much. As soon as you work on it and realize a better name, change it accordingly.</p>
+
+<h2>Then go into the Deviations</h2>
+
+<h2>User Intentions vs System Responsibility</h2>
+
+<h2>Staying Productive</h2>
+
+<p>This is maybe a little off-topic, but maybe you find it useful.</p>
+
+<p>While writing this project I used <strong>OmniFocus</strong> to keep a backlog of things to do. Every time something I wanted or needed to do crossed my mind, I put it on the list.
+<strong>Vitamin-R</strong> and <strong>Pomodoro</strong> helped me to stay focused on the tasks. After finishing each task, I review my todo list and add new tasks which I think need to be done and change or delete existing tasks. Looking at the list I redefined the next most important task which would enable me to show my work to the public.</p>
 ]]></content>
   </entry>
   

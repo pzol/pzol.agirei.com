@@ -5,24 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Experimenting with acceptance testing - ædʒirei</title>
+  <title>Category: bdd, - ædʒirei</title>
   <meta name="author" content="Piotr Zolnierek">
 
   
-  <meta name="description" content="This is how I imagine an acceptance test: transactions_spec.rb 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
+  <meta name="description" content="Category: bdd,">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,7 +18,7 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress">
+  <link rel="canonical" href="http://pzol.github.com/pzolblog/categories/bdd-">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -89,129 +76,36 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Experimenting With Acceptance Testing</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-23T12:22:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2012</time>
-        
-         | <a href="#disqus_thread">Comments</a>
-        
-      </p>
+    <h1 class="entry-title">Category: Bdd,</h1>
     
   </header>
-
-
-<div class="entry-content"><p>This is how I imagine an <em>acceptance test</em>:</p>
-
-<figure class='code'><figcaption><span>transactions_spec.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scenario</span> <span class="s2">&quot;Sunny day&quot;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">user</span> <span class="o">=</span> <span class="no">TestUser</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@browser</span><span class="p">)</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Role</span><span class="o">::</span><span class="no">Browser</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">login</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">is_logged_in!</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">visits</span> <span class="s1">&#39;/stats&#39;</span> <span class="k">unless</span> <span class="n">user</span><span class="o">.</span><span class="n">url</span> <span class="o">=~</span> <span class="sr">/\/stats/</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">searches_by_time_taken</span><span class="p">(</span><span class="n">time_taken</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">assert</span> <span class="n">user</span><span class="o">.</span><span class="n">transactions_on_page</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">20</span>
-</span><span class='line'>        <span class="n">user</span><span class="o">.</span><span class="n">all_transactions!</span> <span class="p">{</span><span class="o">|</span><span class="n">tr</span><span class="o">|</span> <span class="n">tr</span><span class="o">.</span><span class="n">time_taken</span> <span class="o">&gt;</span> <span class="n">time_taken</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Piotr Zolnierek</span></span>
-
-      
-
-
-
-
-
+  <div id="blog-archives" class="category">
 
 
 
   
+  <h2>2012</h2>
+
+<article>
+  
+<h1><a href="/blog/2012/01/29/object-oriented-acceptance-tests-basics/">OOP Acceptance Tests - Basics</a></h1>
+<time datetime="2012-01-29T09:59:00+01:00" pubdate><span class='month'>Jan</span> <span class='day'>29</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/atdd/'>atdd</a>, <a class='category' href='/blog/categories/bdd-/'>bdd,</a>, <a class='category' href='/blog/categories/testing-/'>testing,</a></span>
+</footer>
 
 
-<time datetime="2012-01-23T12:22:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2012</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/bdd/'>bdd</a>, <a class='category' href='/blog/categories/testing-/'>testing,</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/" data-via="pzol" data-counturl="http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2011/02/14/experience-vs-attitude/" title="Previous Post: Experience vs Attitude">&laquo; Experience vs Attitude</a>
-      
-      
-    </p>
-  </footer>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-  </section>
+
+  
+</article>
 
 </div>
 
@@ -222,7 +116,7 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/01/23/testing-octopress/">Experimenting with acceptance testing</a>
+        <a href="/blog/2012/01/29/object-oriented-acceptance-tests-basics/">OOP Acceptance Tests - Basics</a>
       </li>
     
       <li class="post">
@@ -291,10 +185,7 @@ scenario &quot;Sunny day&quot; do user = TestUser.new(@ &hellip;">
       var disqus_shortname = 'pzol';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/';
-        var disqus_url = 'http://pzol.github.com/pzol/blog/2012/01/23/testing-octopress/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
