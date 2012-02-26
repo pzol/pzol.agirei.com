@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: atdd | ædʒirei]]></title>
-  <link href="http://pzol.github.com/pzol/blog/categories/atdd/atom.xml" rel="self"/>
+  <title><![CDATA[Category: testing, | ædʒirei]]></title>
+  <link href="http://pzol.github.com/pzol/blog/categories/testing-/atom.xml" rel="self"/>
   <link href="http://pzol.github.com/pzol/"/>
   <updated>2012-02-26T07:34:13+01:00</updated>
   <id>http://pzol.github.com/pzol/</id>
@@ -264,140 +264,6 @@ end
 <h2>Remember the rules</h2>
 
 <p>When I write a new page, I start with the <strong>outside-inside</strong> principle (or also called feature injection) and <strong>TDD</strong>. I create a test, describing what I expect the page to look like. Then I write the view in html or haml to make the test pass. Only then start replacing the mockup of the page with logic!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Taming the Capybara]]></title>
-    <link href="http://pzol.github.com/pzol/blog/2012/02/02/Taming-the-Capybara/"/>
-    <updated>2012-02-02T10:00:00+01:00</updated>
-    <id>http://pzol.github.com/pzol/blog/2012/02/02/Taming-the-Capybara</id>
-    <content type="html"><![CDATA[<p>Recently I work a lot on Acceptance Tests and how to write them in a clean way.
-When working with <a href="https://www.relishapp.com/rspec">RSpec</a> and <a href="https://github.com/jnicklas/capybara/">Capybara</a> I often see people wanting to go to a page and then do a couple of tests. The intent is to go to the site, login, then <em>describe</em> what they see, which is good practice (at least in theory).</p>
-
-<p>Something like this (which I consider spaghetti coding anyway, but nice for the purpose of illustration):</p>
-
-<p>```ruby
-describe 'My Page', :type => :acceptance do
-  before(:all) do</p>
-
-<pre><code>visit '/'
-fill_in 'email', :with =&gt; 'pzolnierek@gmail.com'
-fill_in 'password', :with =&gt; 'passw0rd'
-click_button 'login'
-</code></pre>
-
-<p>  end</p>
-
-<p>  it 'shows a logout button' do</p>
-
-<pre><code>page.should have_link 'logout'
-</code></pre>
-
-<p>  end</p>
-
-<p>  it 'shows a product information box' do</p>
-
-<pre><code>page.should have_selector '#infoBox'
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>Trouble is that Capybara will by default reset your session after each test. Bummer!
-If you look at the Capybara source code you will find this:</p>
-
-<p>```ruby https://github.com/jnicklas/capybara/blob/master/lib/capybara/rspec.rb
-...
-config.after do</p>
-
-<pre><code>if self.class.include?(Capybara::DSL)
-  Capybara.reset_sessions!
-  Capybara.use_default_driver
-end
-</code></pre>
-
-<p>  end
-...
-```</p>
-
-<h2>The OO Solution</h2>
-
-<p>I am currently working on another more longish article which will be about <strong>Beautiful Acceptance Tests</strong> where I use an object oriented way to  write acceptance tests, but here is a tip from it.</p>
-
-<p>If you want full control do the Capybara wire-up yourself.</p>
-
-<p>First we create a context object, which will hold our session.</p>
-
-<p><code>ruby test_user.rb
-class TestUser
-  include RSpec::Matchers
-  include Capybara::DSL
-  include Capybara::RSpecMatchers
-end
-</code></p>
-
-<p>Now you can do testing like a Boss!</p>
-
-<p>```ruby
-describe 'My Page' do
-  attr_accessor :user
-  before(:all) do</p>
-
-<pre><code>@user = TestUser.new
-@user.visit '/'
-</code></pre>
-
-<p>  end</p>
-
-<p>  it 'shows a logout button' do</p>
-
-<pre><code>user.page.should have_link 'logout'
-</code></pre>
-
-<p>  end</p>
-
-<p>  it 'shows a product information box' do</p>
-
-<pre><code>user.page.should have_selector '#infoBox'
-</code></pre>
-
-<p>  end
-end</p>
-
-<p>```</p>
-
-<p>Notice the missing <code>:type =&gt; :acceptance</code>. Here the <code>Capybara::Session</code> will be embedded in the TestUser instance, instead of the Nested class which is created by RSpec and thus will work across tests.</p>
-
-<h2>The token authorization solution</h2>
-
-<p>Another even faster to implement solution for some people is to have token authorization.</p>
-
-<p>```ruby
-describe 'My Page' do
-  before(:each) do</p>
-
-<pre><code>visit '/?token=some-fancy-token-or-guid'
-</code></pre>
-
-<p>  end</p>
-
-<p>  it 'shows a logout button' do</p>
-
-<pre><code>page.should have_link 'logout'
-</code></pre>
-
-<p>  end</p>
-
-<p>  it 'shows a product information box' do</p>
-
-<pre><code>page.should have_selector '#infoBox'
-</code></pre>
-
-<p>  end
-end
-```</p>
 ]]></content>
   </entry>
   

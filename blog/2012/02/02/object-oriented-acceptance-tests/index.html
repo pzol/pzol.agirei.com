@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>OOP Acceptance Tests - Rspec - ædʒirei</title>
+  <meta name="author" content="Piotr Zolnierek">
+
+  
+  <meta name="description" content="This is part two of my blog post about Acceptance Testing. In the previous post I outlined some basics, now let&#8217;s get into the code. A real &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://pzol.github.com/pzol/blog/2012/02/02/object-oriented-acceptance-tests">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/pzol/atom.xml" rel="alternate" title="ædʒirei" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-4944917-9']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">ædʒirei</a></h1>
+  
+    <h2>pzol blogs about agile philosophy and craftmanship</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/pzol/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:pzol.github.com/pzol" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/about-me">About me</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">OOP Acceptance Tests - Rspec</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-02T11:11:00+01:00" pubdate data-updated="true">Feb 2<span>nd</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is part two of my blog post about Acceptance Testing. In the previous post I outlined some basics, now let&#8217;s get into the code.</p>
+
+<h2>A real life example</h2>
+
+<p>The tests I will be showing you are based on a real-life example, which I have (vastly) simplified for this article. Here is a picture how it looks like:</p>
+
+<p><img src="/downloads/transaction_browser.png"></p>
+
+<p>The source code for the test application is available at <a href="https://github.com/pzol/acceptance_testing">https://github.com/pzol/acceptance_testing</a></p>
+
+<h2>Know your tools</h2>
+
+<p>If you want to dive deep into acceptance testing, you can skip this part.</p>
+
+<p><span class='pullquote-right' data-pullquote='automates fast feedback from the first minute '>
+In order to be productive and not waste time with repeating tasks, I find it very important to setup an environment which automates fast feedback from the first minute about what is going on in your application and your tests.
+</span></p>
+
+<p>The tools I use here are</p>
+
+<ul>
+<li><a href="https://www.relishapp.com/rspec">Rspec</a></li>
+<li><a href="https://github.com/guard/guard">Guard</a> - for running specs as they change</li>
+<li><a href="https://github.com/jnicklas/capybara">Capybara</a> - to help testing the web application</li>
+</ul>
+
+
+<p>This is how my <code>.rspec</code> looks like:</p>
+
+<pre><code>--color
+--format progress
+--fail-fast
+</code></pre>
+
+<p>This will format the output in color, display the output in dots (progress) format and most importantly turn on fail-fast, which will stop the tests at the first error!</p>
+
+<p>For running single tests via Guard, I can override this options in the Guardfile</p>
+
+<figure class='code'><figcaption><span>Guardfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">guard</span> <span class="s1">&#39;rspec&#39;</span><span class="p">,</span> <span class="ss">:version</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">:cli</span> <span class="o">=&gt;</span> <span class="s2">&quot;--format nested&quot;</span><span class="p">,</span> <span class="ss">:notification</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^spec/.+_spec\.rb$}</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can run the application under test using  <code>bundle exec rackup</code><br/>
+then go with your browser to <code>http://localhost:9292</code></p>
+
+<h2>Test Data</h2>
+
+<p>As the system shall test the application end-to-end we need some test data, I have actually exported from a real database and saved as json</p>
+
+<h2>My ideal acceptance test</h2>
+
+<p>This is how I imagine an <em>acceptance test</em>:</p>
+
+<figure class='code'><figcaption><span>sunny_day.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">scenario</span> <span class="s1">&#39;latest transactions&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">user</span> <span class="o">=</span> <span class="no">TestUser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Role</span><span class="o">::</span><span class="no">TransactionsBrowser</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">user</span><span class="o">.</span><span class="n">visit_latest_transactions</span>
+</span><span class='line'>  <span class="n">user</span><span class="o">.</span><span class="n">sees_transactions_table!</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">user</span><span class="o">.</span><span class="n">sees_transactions_table!</span>
+</span><span class='line'>  <span class="n">user</span><span class="o">.</span><span class="n">all_table_rows</span> <span class="k">do</span> <span class="o">|</span><span class="n">tr</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">tr</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">should</span> <span class="n">be_a</span> <span class="no">DateTime</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Although I generally recommend not to clutter your scenario with shoulds or asserts, sometimes having them means is faster and means much less code. Not having them adds the minor benefit, that you are not depending on a particular testing framework.</p>
+
+<h2>The TestUser class</h2>
+
+<p>It represents the Data in DCI. For the RSpec I create an empty class and add the <code>Capybara::DSL</code> as well as the <code>Capybara::RSpecMatchers</code>. Those will make available all the nice Capybara and RSpec matchers within the <code>TestUser</code> class and also to its instances.</p>
+
+<figure class='code'><figcaption><span>test_user.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">TestUser</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">RSpec</span><span class="o">::</span><span class="no">Matchers</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Capybara</span><span class="o">::</span><span class="no">DSL</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Capybara</span><span class="o">::</span><span class="no">RSpecMatchers</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Role</span><span class="o">::</span><span class="no">Navigator</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Role</span><span class="o">::</span><span class="no">Verifier</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>The TransactionBrowser Role</h2>
+
+<p>It contains all the role methods which a person browsing the transactions might do. <br/>
+The transactions page contains a list of transactions which have been sent to some API.</p>
+
+<p>By calling <code>user.sees_transactions_table!</code> I define that the user sees the table. We intuitively know what it means to see that table and if it is alright. So mapping this to my mental model I only have this terse command with the bang! at the end, which means this is an <em>assertion</em>.  Inside this method I describe what it means, that the table is displayed correctly.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">sees_transactions_table!</span>
+</span><span class='line'>  <span class="n">headers</span> <span class="o">=</span> <span class="sx">%w[timestamp contract facility method time_taken product]</span>
+</span><span class='line'>  <span class="k">begin</span>
+</span><span class='line'>    <span class="n">thead</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="s1">&#39;#transactionsTable thead&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">rescue</span> <span class="no">Capybara</span><span class="o">::</span><span class="no">ElementNotFound</span>
+</span><span class='line'>    <span class="k">raise</span><span class="p">(</span><span class="s2">&quot;Could not find the transactionsTable in </span><span class="si">#{</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;#summary&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">headers</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">h</span><span class="o">|</span> <span class="n">thead</span><span class="o">.</span><span class="n">should</span> <span class="n">have_content</span> <span class="n">h</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">table_rows</span><span class="o">.</span><span class="n">should</span> <span class="n">have</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">rows</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What is very important here, that we verify, that we have the correct page loaded and if not to display the error message in the test results, otherwise you will be doing a lot of &#8216;puts-driven-development&#8217;.</p>
+
+<p>I know that Sinatra displays its error in the <code>#summary</code> div, so I pick just this to be shown in my test results, Capybara nicely strips all the html around, so it is very readable in the console:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Could</span> <span class="ow">not</span> <span class="n">find</span> <span class="n">the</span> <span class="n">transactionsTable</span> <span class="k">in</span>
+</span><span class='line'>       <span class="no">NoMethodError</span> <span class="n">at</span> <span class="o">/</span>
+</span><span class='line'>
+</span><span class='line'>       <span class="n">undefined</span> <span class="nb">method</span> <span class="sb">`&lt;&lt;&#39; for nil:NilClass</span>
+</span><span class='line'><span class="sb">       file: </span>
+</span><span class='line'><span class="sb">           latest_transactions_context.rb</span>
+</span><span class='line'><span class="sb">         location: block in call</span>
+</span><span class='line'><span class="sb">           </span>
+</span><span class='line'><span class="sb">         line:</span>
+</span><span class='line'><span class="sb">            6</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next I verify all the table rows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">user</span><span class="o">.</span><span class="n">all_table_rows</span> <span class="k">do</span> <span class="o">|</span><span class="n">tr</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">tr</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">should</span> <span class="n">be_a</span> <span class="no">DateTime</span>
+</span><span class='line'>  <span class="n">tr</span><span class="o">.</span><span class="n">contract</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span>
+</span><span class='line'>  <span class="n">tr</span><span class="o">.</span><span class="n">facility</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="s1">&#39;api.test&#39;</span>
+</span><span class='line'>  <span class="n">tr</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="s1">&#39;hotels&#39;</span>
+</span><span class='line'>  <span class="n">tr</span><span class="o">.</span><span class="n">time_taken</span><span class="o">.</span><span class="n">should</span> <span class="n">be_a</span> <span class="no">Fixnum</span>
+</span><span class='line'>  <span class="n">tr</span><span class="o">.</span><span class="n">product</span><span class="o">.</span><span class="n">should</span> <span class="o">==</span> <span class="s1">&#39;HOTEL&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ok, now that we are done with the basic sunny day scenario, we need the user to be able to search. Writing the scenario first.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">scenario</span> <span class="s1">&#39;search by time_taken&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Role</span><span class="o">::</span><span class="no">TimeTakenSearcher</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">visit_latest_transactions</span>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">sees_transactions_table!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">searches_for_time_taken</span><span class="p">(</span><span class="n">time_taken</span> <span class="o">=</span> <span class="mi">20000</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">sees_transactions_table!</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">user</span><span class="o">.</span><span class="n">all_table_rows</span> <span class="k">do</span> <span class="o">|</span><span class="n">tr</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">tr</span><span class="o">.</span><span class="n">time_taken</span><span class="o">.</span><span class="n">should</span> <span class="o">&gt;</span> <span class="n">time_taken</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I can reuse easily the a lot of the code I used earlier. The new thing here is <code>user.searches_for_time_taken(time_taken = 20000)</code>. This will hide the ugly details of filling boxes and clicking, and is so much more readable.<br/>
+I consciously am <strong>not</strong> checking for the count of rows as in the first example. I am verifying only what makes this scenario successful, which is the time_taken. This makes the tests also less brittle in case I decide to change the underlying test data later.</p>
+
+<p>I introduce a new role <code>Role::TimeTakenSearcher</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Role</span>
+</span><span class='line'>  <span class="k">module</span> <span class="nn">TimeTakenSearcher</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">searches_for_time_taken</span><span class="p">(</span><span class="n">time_taken</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">fill_in</span> <span class="s1">&#39;time_taken&#39;</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="n">time_taken</span>
+</span><span class='line'>      <span class="n">click_button</span><span class="s1">&#39;searchButton&#39;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Browser-less web-development promotes reliable acceptance tests</h2>
+
+<p>While writing the accompanying application for this article, I decided <strong>not</strong> to open the browser, especially when errors occurred. It was difficult at first, but in the end it saved me a lot of time and it made my tests so much more reliable. It forced me to have more descriptive error messages.</p>
+
+<h2>A word about test-speed</h2>
+
+<p>I am a fan of <a href="https://github.com/guard/guard">Guard</a>, every time I save it runs the test I am working on in the background and notifies me by Growl if the test passed or not. Thus fast feedback is important for my workflow.</p>
+
+<p>A single test should run fast, always, by that I mean less than 500 ms. On top of that comes the startup time. For Sinatra and Padrino that&#8217;s usually 2-3 secs, for Rails&#8230; well&#8230; you might want to use Spork there.</p>
+
+<p>That&#8217;s another reason why you should have an object oriented design in your code, so you can use regular unit tests</p>
+
+<p>Please do include unit test. Acceptance test show you if the system as a whole is working, but as they see it only from the user&#8217;s point of view, they may not show you where the system is broken.</p>
+
+<h2>Remember the rules</h2>
+
+<p>When I write a new page, I start with the <strong>outside-inside</strong> principle (or also called feature injection) and <strong>TDD</strong>. I create a test, describing what I expect the page to look like. Then I write the view in html or haml to make the test pass. Only then start replacing the mockup of the page with logic!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Piotr Zolnierek</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-02T11:11:00+01:00" pubdate data-updated="true">Feb 2<span>nd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/atdd/'>atdd</a>, <a class='category' href='/blog/categories/bdd-/'>bdd,</a>, <a class='category' href='/blog/categories/testing-/'>testing,</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://pzol.github.com/pzol/blog/2012/02/02/object-oriented-acceptance-tests/" data-via="pzol" data-counturl="http://pzol.github.com/pzol/blog/2012/02/02/object-oriented-acceptance-tests/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/02/02/Taming-the-Capybara/" title="Previous Post: Taming the Capybara">&laquo; Taming the Capybara</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/03/01/object-oriented-acceptance-tests-cucumber/" title="Next Post: OOP Acceptance Tests - Cucumber">OOP Acceptance Tests - Cucumber &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/03/01/object-oriented-acceptance-tests-cucumber/">OOP Acceptance Tests - Cucumber</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/02/object-oriented-acceptance-tests/">OOP Acceptance Tests - Rspec</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/02/Taming-the-Capybara/">Taming the Capybara</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/29/object-oriented-acceptance-tests-basics/">OOP Acceptance Tests - Basics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/02/14/experience-vs-attitude/">Experience vs Attitude</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("pzol", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/pzol" class="twitter-follow-button" data-show-count="false">Follow @pzol</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <div id="delicious"></div>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/pzol?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
+  <p><a href="http://delicious.com/pzol">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/116109799198591641594?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Piotr Zolnierek -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'pzol';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://pzol.github.com/pzol/blog/2012/02/02/object-oriented-acceptance-tests/';
+        var disqus_url = 'http://pzol.github.com/pzol/blog/2012/02/02/object-oriented-acceptance-tests/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
