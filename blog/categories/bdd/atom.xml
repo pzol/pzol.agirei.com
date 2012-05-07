@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: bdd | ædʒirei]]></title>
-  <link href="http://pzol.github.com/pzol/blog/categories/bdd/atom.xml" rel="self"/>
-  <link href="http://pzol.github.com/pzol/"/>
-  <updated>2012-02-26T07:46:33+01:00</updated>
-  <id>http://pzol.github.com/pzol/</id>
+  <link href="http://pzol.agirei.com/blog/categories/bdd/atom.xml" rel="self"/>
+  <link href="http://pzol.agirei.com/"/>
+  <updated>2012-05-07T20:57:03+02:00</updated>
+  <id>http://pzol.agirei.com/</id>
   <author>
     <name><![CDATA[Piotr Zolnierek]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Taming the Capybara]]></title>
-    <link href="http://pzol.github.com/pzol/blog/2012/02/02/Taming-the-Capybara/"/>
+    <link href="http://pzol.agirei.com/blog/2012/02/02/Taming-the-Capybara/"/>
     <updated>2012-02-02T10:00:00+01:00</updated>
-    <id>http://pzol.github.com/pzol/blog/2012/02/02/Taming-the-Capybara</id>
+    <id>http://pzol.agirei.com/blog/2012/02/02/Taming-the-Capybara</id>
     <content type="html"><![CDATA[<p>Recently I work a lot on Acceptance Tests and how to write them in a clean way.
 When working with <a href="https://www.relishapp.com/rspec">RSpec</a> and <a href="https://github.com/jnicklas/capybara/">Capybara</a> I often see people wanting to go to a page and then do a couple of tests. The intent is to go to the site, login, then <em>describe</em> what they see, which is good practice (at least in theory).</p>
 
